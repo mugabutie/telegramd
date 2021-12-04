@@ -18,8 +18,8 @@
 package main
 
 import (
-	"github.com/nebulaim/telegramd/sync_server/chat_test"
 	"flag"
+	"github.com/mugabutie/telegramd/sync_server/chat_test"
 )
 
 func init() {

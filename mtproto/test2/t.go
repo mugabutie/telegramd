@@ -18,16 +18,16 @@
 package main
 
 import (
-	"fmt"
-	"github.com/nebulaim/telegramd/mtproto"
-	"crypto/x509"
+	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha1"
+	"crypto/x509"
+	"encoding/hex"
 	"encoding/pem"
 	"errors"
-	"crypto/rand"
+	"fmt"
+	"github.com/mugabutie/telegramd/mtproto"
 	"math/big"
-	"crypto/sha1"
-	"encoding/hex"
 )
 
 type Message interface {
@@ -37,7 +37,7 @@ type Message interface {
 type A1 struct {
 }
 
-func (m *A1) Decode(b []byte) error  {
+func (m *A1) Decode(b []byte) error {
 	fmt.Println("A1.Decode()")
 	return nil
 }
@@ -45,7 +45,7 @@ func (m *A1) Decode(b []byte) error  {
 type A2 struct {
 }
 
-func (m *A2) Decode(b []byte) error  {
+func (m *A2) Decode(b []byte) error {
 	fmt.Println("A2.Decode()")
 	return nil
 }
@@ -53,8 +53,8 @@ func (m *A2) Decode(b []byte) error  {
 type NewMessageFunc func() Message
 
 var registers = map[int32]NewMessageFunc{
-	1 : func() (Message) { return new(A1) },
-	2 : func() (Message) { return &A2{} },
+	1: func() Message { return new(A1) },
+	2: func() Message { return &A2{} },
 }
 
 func NewMessage(i int32) *Message {
@@ -66,8 +66,8 @@ func NewMessage(i int32) *Message {
 
 type newTLObjectFunc func() interface{}
 
-var registers2 = map[mtproto.TLConstructor]newTLObjectFunc {
-	mtproto.TLConstructor_CRC32_p_q_inner_data : func() (interface{}) {return new(mtproto.TLPQInnerData) },
+var registers2 = map[mtproto.TLConstructor]newTLObjectFunc{
+	mtproto.TLConstructor_CRC32_p_q_inner_data: func() interface{} { return new(mtproto.TLPQInnerData) },
 }
 
 func NewTLObjectByClassID(classId mtproto.TLConstructor) interface{} {
@@ -119,7 +119,6 @@ func RsaDecrypt(ciphertext []byte) ([]byte, error) {
 */
 
 // var a = rand.Reader
-
 
 var pcks8PemPublicKey = []byte(`
 -----BEGIN PUBLIC KEY-----
@@ -212,7 +211,7 @@ KWhw9m0DccyESBrn/R8c0ew3
   openssl genrsa -out server.key 2048
   openssl rsa -in server.key -pubout > public_pcks8.pub
   openssl rsa -in server.key -outform PEM -RSAPublicKey_out -out public_pcks1.key
- */
+*/
 
 // 加密
 func getPublicKey(pemPublicKey []byte) (pub *rsa.PublicKey, err error) {
@@ -239,7 +238,6 @@ func getPublicKey(pemPublicKey []byte) (pub *rsa.PublicKey, err error) {
 	return
 }
 
-
 func getPrivateKey(pemPrivateKey []byte) (prv *rsa.PrivateKey, err error) {
 	// testPrivateKey
 	block, _ := pem.Decode([]byte(pemPrivateKey))
@@ -261,7 +259,6 @@ func getPrivateKey(pemPrivateKey []byte) (prv *rsa.PrivateKey, err error) {
 	// return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)
 	return
 }
-
 
 func doRSAencrypt(em []byte) []byte {
 	publicKey, _ := getPublicKey(pcks8PemPublicKey)
@@ -293,22 +290,21 @@ func doRSAdecrypt(em []byte) []byte {
 	return c.Bytes()
 }
 
-func main()  {
+func main() {
 	// processPrivateKey()
 	// fmt.Println("-----------------------------------------------------------------------")
 	// processPublicKey()
 
-/*
-	testData := []byte("rsa 2048 key!!!!")
-	fmt.Println(string(testData))
+	/*
+		testData := []byte("rsa 2048 key!!!!")
+		fmt.Println(string(testData))
 
-	encData := rsa.Encrypt(testData)
-	fmt.Println(string(encData))
+		encData := rsa.Encrypt(testData)
+		fmt.Println(string(encData))
 
-	decData := rsa.Decrypt(encData)
-	fmt.Println("len = ", len(decData), ", data: ", string(decData))
- */
-
+		decData := rsa.Decrypt(encData)
+		fmt.Println("len = ", len(decData), ", data: ", string(decData))
+	*/
 
 	rsa := mtproto.NewRSACryptor()
 
@@ -328,7 +324,7 @@ func main()  {
 	b := pqInnerData.Encode()
 	sha1_b := sha1.Sum(b)
 
-	b = append(sha1_b[:],b...)
+	b = append(sha1_b[:], b...)
 	fmt.Println(hex.EncodeToString(b))
 
 	e_b := rsa.Encrypt(b)
@@ -379,5 +375,5 @@ func main()  {
 		fmt.Printf("Public Key N value(modulus) :  : %d\n\n", rsaPubKey.N)
 
 		fmt.Printf("Public Key E value(exponent) :  : %d\n\n", rsaPubKey.E)
-	 */
+	*/
 }

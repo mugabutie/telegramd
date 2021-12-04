@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/jmoiron/sqlx"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"github.com/nebulaim/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/mtproto"
 )
 
 type AuthPhoneTransactionsDAO struct {

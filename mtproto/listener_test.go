@@ -18,12 +18,12 @@
 package mtproto
 
 import (
-	"testing"
-	"net"
-	"log"
 	"fmt"
-	net2 "github.com/nebulaim/telegramd/net"
-	"github.com/nebulaim/telegramd/net/codec"
+	net2 "github.com/mugabutie/telegramd/net"
+	"github.com/mugabutie/telegramd/net/codec"
+	"log"
+	"net"
+	"testing"
 )
 
 func TTestListener(t *testing.T) {

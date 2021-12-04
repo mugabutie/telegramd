@@ -18,26 +18,27 @@
 package codec
 
 import (
-	net2 "github.com/nebulaim/telegramd/net"
-	"io"
 	"bufio"
+	net2 "github.com/mugabutie/telegramd/net"
+	"io"
 )
 
 const (
 	kDedaultReadBufferSize = 1024
 )
+
 func NewLengthBasedFrame(readBuf int) net2.Protocol {
-	if readBuf <=0 {
+	if readBuf <= 0 {
 		readBuf = kDedaultReadBufferSize
 	}
 
 	return &LengthBasedFrame{
-		readBuf:  readBuf,
+		readBuf: readBuf,
 	}
 }
 
 type LengthBasedFrame struct {
-	readBuf  int
+	readBuf int
 }
 
 func (b *LengthBasedFrame) NewCodec(rw io.ReadWriter) (cc net2.Codec, err error) {
@@ -78,7 +79,7 @@ func (c *LengthBasedFrameCodec) Send(msg interface{}) error {
 }
 
 func (c *LengthBasedFrameCodec) Receive() (interface{}, error) {
-	line, err := c.stream.r.ReadString('\n');
+	line, err := c.stream.r.ReadString('\n')
 	return line, err
 }
 

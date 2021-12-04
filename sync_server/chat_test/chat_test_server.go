@@ -18,18 +18,18 @@
 package chat_test
 
 import (
-	"net"
-	"google.golang.org/grpc"
 	"context"
-	"sync"
 	"errors"
 	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/zproto"
+	"github.com/mugabutie/telegramd/zproto"
+	"google.golang.org/grpc"
+	"net"
+	"sync"
 )
 
 type RpcChatTestServer struct {
-	mu   sync.RWMutex
-	buf  map[string]chan *zproto.ChatMessage
+	mu  sync.RWMutex
+	buf map[string]chan *zproto.ChatMessage
 }
 
 func NewChatTestServer() *RpcChatTestServer {
@@ -58,7 +58,7 @@ func (s *RpcChatTestServer) unsafeExpire(sid string) {
 }
 
 func (s *RpcChatTestServer) Connect(request *zproto.ChatSession, stream zproto.ChatTest_ConnectServer) (err error) {
-	var buf  chan *zproto.ChatMessage = make(chan *zproto.ChatMessage, 1000)
+	var buf chan *zproto.ChatMessage = make(chan *zproto.ChatMessage, 1000)
 
 	s.withWriteLock(func() {
 		if _, ok := s.buf[request.SessionId]; ok {

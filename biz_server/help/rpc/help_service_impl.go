@@ -21,11 +21,11 @@ import (
 	"errors"
 	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	model2 "github.com/nebulaim/telegramd/biz_server/help/model"
-	"github.com/nebulaim/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	model2 "github.com/mugabutie/telegramd/biz_server/help/model"
+	"github.com/mugabutie/telegramd/mtproto"
 	"golang.org/x/net/context"
 	"time"
-	"github.com/nebulaim/telegramd/biz_model/model"
 )
 
 const (
@@ -41,7 +41,7 @@ const (
 
 var config model2.Config
 
-func init()  {
+func init() {
 	if _, err := toml.DecodeFile(CONFIG_FILE, &config); err != nil {
 		panic(err)
 	}

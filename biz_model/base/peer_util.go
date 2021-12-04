@@ -18,28 +18,27 @@
 package base
 
 import (
-	"github.com/nebulaim/telegramd/mtproto"
+	"../../mtproto"
 	"fmt"
 )
 
 const (
-	PEER_EMPTY 		= 0
-	PEER_SELF 		= 1
-	PEER_USER 		= 2
-	PEER_CHAT 		= 3
-	PEER_CHANNEL 	= 4
-	PEER_USERS		= 5
-	PEER_CHATS 		= 6
-	PEER_ALL 		= 7
-	PEER_UNKNOWN 	= -1
+	PEER_EMPTY   = 0
+	PEER_SELF    = 1
+	PEER_USER    = 2
+	PEER_CHAT    = 3
+	PEER_CHANNEL = 4
+	PEER_USERS   = 5
+	PEER_CHATS   = 6
+	PEER_ALL     = 7
+	PEER_UNKNOWN = -1
 )
 
 type PeerUtil struct {
-	PeerType 		int32
-	PeerId 			int32
-	AccessHash    	int64
+	PeerType   int32
+	PeerId     int32
+	AccessHash int64
 }
-
 
 func (p PeerUtil) String() (s string) {
 	switch p.PeerType {

@@ -18,11 +18,11 @@
 package grpc_util
 
 import (
-	"google.golang.org/grpc/codes"
 	"context"
-	"google.golang.org/grpc/status"
+	"github.com/mugabutie/telegramd/mtproto"
 	"google.golang.org/grpc"
-	"github.com/nebulaim/telegramd/mtproto"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func BizUnaryRecoveryHandler(ctx context.Context, p interface{}) (err error) {
@@ -39,4 +39,3 @@ func BizUnaryRecoveryHandler(ctx context.Context, p interface{}) (err error) {
 func BizStreamRecoveryHandler(stream grpc.ServerStream, p interface{}) (err error) {
 	return
 }
-

@@ -18,11 +18,11 @@
 package auth_key
 
 import (
-	"github.com/golang/glog"
 	"encoding/base64"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
 	"github.com/cosiner/gohper/errors"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
 )
 
 // "root:@/nebulaim?charset=utf8"
@@ -62,9 +62,8 @@ func (s *AuthKeyCacheManager) PutAuthKey(keyID int64, key []byte) (err error) {
 		}
 	}()
 
-	do := &dataobject.AuthKeysDO{ AuthId: keyID}
+	do := &dataobject.AuthKeysDO{AuthId: keyID}
 	do.Body = base64.RawStdEncoding.EncodeToString(key)
 	dao.GetAuthKeysDAO(dao.DB_MASTER).Insert(do)
 	return
 }
-

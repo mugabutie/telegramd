@@ -18,14 +18,14 @@
 package grpc_testing
 
 import (
-	"testing"
 	"reflect"
-	// "github.com/nebulaim/telegramd/mtproto"
+	"testing"
+	// "github.com/mugabutie/telegramd/mtproto"
 	"fmt"
-	// "github.com/nebulaim/telegramd/mtproto"
+	// "github.com/mugabutie/telegramd/mtproto"
 )
 
-func TestReflectTLObject(t *testing.T)  {
+func TestReflectTLObject(t *testing.T) {
 	authSendCode := &TLAuthSendCode{}
 
 	rt := reflect.TypeOf(authSendCode)

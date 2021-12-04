@@ -18,17 +18,17 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
-	"golang.org/x/net/context"
 	"errors"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"time"
-	"github.com/nebulaim/telegramd/frontend/id"
 	"fmt"
-	"github.com/nebulaim/telegramd/grpc_util"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/frontend/id"
+	"github.com/mugabutie/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/mtproto"
 	"github.com/ttacon/libphonenumber"
+	"golang.org/x/net/context"
+	"time"
 )
 
 type AuthServiceImpl struct {

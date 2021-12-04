@@ -18,10 +18,10 @@
 package mtproto
 
 import (
-	"testing"
-	"github.com/nebulaim/telegramd/frontend/id"
-	"time"
 	"fmt"
+	"github.com/mugabutie/telegramd/frontend/id"
+	"testing"
+	"time"
 )
 
 func TestRpcMetaData(t *testing.T) {
@@ -34,7 +34,6 @@ func TestRpcMetaData(t *testing.T) {
 	rpcMetadata.TraceId = id.NextId()
 	rpcMetadata.SpanId = id.NextId()
 	rpcMetadata.ReceiveTime = time.Now().Unix()
-
 
 	md := rpcMetadata.Encode()
 

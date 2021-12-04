@@ -18,15 +18,15 @@
 package client
 
 import (
-	"github.com/golang/glog"
-	"fmt"
 	"encoding/hex"
-	. "github.com/nebulaim/telegramd/mtproto"
+	"fmt"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	"github.com/mugabutie/telegramd/frontend/id"
+	. "github.com/mugabutie/telegramd/mtproto"
 	"time"
-	"github.com/nebulaim/telegramd/frontend/id"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"github.com/nebulaim/telegramd/biz_model/model"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 )
 
 func (c *Client) onMsgsAck(msgId int64, seqNo int32, request TLObject) {
@@ -47,7 +47,7 @@ func (c *Client) onNewSessionCreated(sessionId, msgId int64, seqNo int32) (notif
 	authSaltsDO := dao.GetAuthSaltsDAO(dao.DB_SLAVE).SelectByAuthId(c.Codec.AuthKeyId)
 	if authSaltsDO == nil {
 		// salts不存在，插入一条记录
-		authSaltsDO = &dataobject.AuthSaltsDO{ AuthId: c.Codec.AuthKeyId, Salt: id.NextId() }
+		authSaltsDO = &dataobject.AuthSaltsDO{AuthId: c.Codec.AuthKeyId, Salt: id.NextId()}
 	} else {
 		// TODO(@benqi): salts是否已经过有效期
 	}
@@ -55,7 +55,7 @@ func (c *Client) onNewSessionCreated(sessionId, msgId int64, seqNo int32) (notif
 	// c.Codec.SessionId =
 	notify = &TLNewSessionCreated{
 		FirstMsgId: msgId,
-		UniqueId: id.NextId(),
+		UniqueId:   id.NextId(),
 		ServerSalt: authSaltsDO.Salt,
 	}
 	return
@@ -75,20 +75,20 @@ func (c *Client) setOnline() {
 	}
 }
 
-func (c *Client) onPing(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onPing(msgId int64, seqNo int32, request TLObject) TLObject {
 	ping, _ := request.(*TLPing)
 	glog.Info("processPing - request data: ", ping.String())
 
 	// c.setOnline()
 	pong := &TLPong{
-		MsgId: msgId,
+		MsgId:  msgId,
 		PingId: ping.PingId,
 	}
 
 	return pong
 }
 
-func (c *Client) onDestroyAuthKey(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onDestroyAuthKey(msgId int64, seqNo int32, request TLObject) TLObject {
 	destroyAuthKey, _ := request.(*TLDestroyAuthKey)
 	glog.Info("onDestroyAuthKey - request data: ", destroyAuthKey.String())
 
@@ -96,20 +96,20 @@ func (c *Client) onDestroyAuthKey(msgId int64, seqNo int32, request TLObject) (T
 	return destroyAuthKeyRes
 }
 
-func (c *Client) onPingDelayDisconnect(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onPingDelayDisconnect(msgId int64, seqNo int32, request TLObject) TLObject {
 	pingDelayDissconnect, _ := request.(*TLPingDelayDisconnect)
 	glog.Info("processPingDelayDisconnect - request data: ", pingDelayDissconnect.String())
 
 	// c.setOnline()
 	pong := &TLPong{
-		MsgId: msgId,
+		MsgId:  msgId,
 		PingId: pingDelayDissconnect.PingId,
 	}
 
 	return pong
 }
 
-func (c *Client) onDestroySession(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onDestroySession(msgId int64, seqNo int32, request TLObject) TLObject {
 	destroySession, _ := request.(*TLDestroySession)
 	glog.Info("processDestroySession - request data: ", destroySession.String())
 
@@ -120,18 +120,17 @@ func (c *Client) onDestroySession(msgId int64, seqNo int32, request TLObject) (T
 	return destroy_session_ok
 }
 
-func (c *Client) onGetFutureSalts(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onGetFutureSalts(msgId int64, seqNo int32, request TLObject) TLObject {
 	getFutureSalts, _ := request.(*TLGetFutureSalts)
 	glog.Info("processGetFutureSalts - request data: ", getFutureSalts.String())
 
 	// TODO(@benqi): 实现getFutureSalts处理逻辑
-	futureSalts := &TLFutureSalts{
-	}
+	futureSalts := &TLFutureSalts{}
 
 	return futureSalts
 }
 
-func (c *Client) onRpcDropAnswer(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onRpcDropAnswer(msgId int64, seqNo int32, request TLObject) TLObject {
 	rpcDropAnswer, _ := request.(*TLRpcDropAnswer)
 	glog.Info("processRpcDropAnswer - request data: ", rpcDropAnswer.String())
 
@@ -140,7 +139,7 @@ func (c *Client) onRpcDropAnswer(msgId int64, seqNo int32, request TLObject) (TL
 	return nil
 }
 
-func (c *Client) onContestSaveDeveloperInfo(msgId int64, seqNo int32, request TLObject) (TLObject) {
+func (c *Client) onContestSaveDeveloperInfo(msgId int64, seqNo int32, request TLObject) TLObject {
 	contestSaveDeveloperInfo, _ := request.(*TLContestSaveDeveloperInfo)
 	glog.Info("processGetFutureSalts - request data: ", contestSaveDeveloperInfo.String())
 
@@ -164,7 +163,7 @@ func (c *Client) onInvokeWithLayer(msgId int64, seqNo int32, request TLObject) (
 	}
 
 	dbuf := NewDecodeBuf(invokeWithLayer.Query)
-	classID := dbuf.Int();
+	classID := dbuf.Int()
 	if classID != int32(TLConstructor_CRC32_initConnection) {
 		return fmt.Errorf("Not initConnection classID: %d", classID)
 	}
@@ -184,18 +183,18 @@ func (c *Client) onInvokeWithLayer(msgId int64, seqNo int32, request TLObject) (
 	}()
 
 	// TODO(@benqi): 客户端保存的initConnection信息推到后台服务存储
-	do :=  dao.GetAuthsDAO(dao.DB_MASTER).SelectConnectionHashByAuthId(c.Codec.AuthKeyId)
+	do := dao.GetAuthsDAO(dao.DB_MASTER).SelectConnectionHashByAuthId(c.Codec.AuthKeyId)
 	if do == nil {
 		do = &dataobject.AuthsDO{
-			AuthId: c.Codec.AuthKeyId,
-			ApiId:  initConnection.ApiId,
-			DeviceModel: initConnection.DeviceModel,
-			SystemVersion: initConnection.SystemVersion,
-			AppVersion: initConnection.AppVersion,
+			AuthId:         c.Codec.AuthKeyId,
+			ApiId:          initConnection.ApiId,
+			DeviceModel:    initConnection.DeviceModel,
+			SystemVersion:  initConnection.SystemVersion,
+			AppVersion:     initConnection.AppVersion,
 			SystemLangCode: initConnection.SystemLangCode,
-			LangPack: initConnection.LangPack,
-			LangCode: initConnection.LangCode,
-			CreatedAt: time.Now().Format("2006-01-02 15:04:05"),
+			LangPack:       initConnection.LangPack,
+			LangCode:       initConnection.LangCode,
+			CreatedAt:      time.Now().Format("2006-01-02 15:04:05"),
 		}
 		dao.GetAuthsDAO(dao.DB_MASTER).Insert(do)
 	} else {
@@ -233,7 +232,6 @@ func (c *Client) onInvokeAfterMsg(msgId int64, seqNo int32, request TLObject) er
 func (c *Client) onMsgContainer(msgId int64, seqNo int32, request TLObject) error {
 	msgContainer, _ := request.(*TLMsgContainer)
 	glog.Info("processMsgContainer - request data: ", msgContainer.String())
-
 
 	for _, m := range msgContainer.Messages {
 		c.OnMessage(m.MsgId, m.Seqno, m.Object)

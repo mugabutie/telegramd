@@ -25,8 +25,8 @@ package redis_dao
 import (
 	"fmt"
 	"github.com/garyburd/redigo/redis"
-	"github.com/nebulaim/telegramd/base/base"
-	"github.com/nebulaim/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/base/redis_client"
 )
 
 const (
@@ -75,4 +75,3 @@ func (dao *SequenceDAO) Set(key string, seq int64) (err error) {
 
 	return
 }
-

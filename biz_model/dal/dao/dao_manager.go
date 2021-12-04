@@ -18,17 +18,17 @@
 package dao
 
 import (
-	"github.com/nebulaim/telegramd/biz_model/dal/dao/mysql_dao"
-	"github.com/jmoiron/sqlx"
 	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/base/redis_client"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao/redis_dao"
+	"github.com/jmoiron/sqlx"
+	"github.com/mugabutie/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao/mysql_dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao/redis_dao"
 )
 
 const (
-	DB_MASTER 		= "immaster"
-	DB_SLAVE 		= "imslave"
-	CACHE 			= "cache"
+	DB_MASTER = "immaster"
+	DB_SLAVE  = "imslave"
+	CACHE     = "cache"
 )
 
 type MysqlDAOList struct {
@@ -36,27 +36,27 @@ type MysqlDAOList struct {
 	CommonDAO *mysql_dao.CommonDAO
 
 	// auth_key
-	AuthKeysDAO* mysql_dao.AuthKeysDAO
-	AuthsDAO *mysql_dao.AuthsDAO
+	AuthKeysDAO  *mysql_dao.AuthKeysDAO
+	AuthsDAO     *mysql_dao.AuthsDAO
 	AuthSaltsDAO *mysql_dao.AuthSaltsDAO
 	AuthUsersDAO *mysql_dao.AuthUsersDAO
 
 	// biz
-	UsersDAO *mysql_dao.UsersDAO
-	DevicesDAO *mysql_dao.DevicesDAO
+	UsersDAO                 *mysql_dao.UsersDAO
+	DevicesDAO               *mysql_dao.DevicesDAO
 	AuthPhoneTransactionsDAO *mysql_dao.AuthPhoneTransactionsDAO
-	UserDialogsDAO *mysql_dao.UserDialogsDAO
-	UserContactsDAO *mysql_dao.UserContactsDAO
-	MessageBoxesDAO *mysql_dao.MessageBoxesDAO
-	MessagesDAO *mysql_dao.MessagesDAO
-	SeqUpdatesNgenDAO* mysql_dao.SeqUpdatesNgenDAO
-	ClientUpdatesStateDAO* mysql_dao.ClientUpdatesStateDAO
-	UserNotifySettingsDAO* mysql_dao.UserNotifySettingsDAO
-	ReportsDAO* mysql_dao.ReportsDAO
-	UserPrivacysDAO* mysql_dao.UserPrivacysDAO
-	TmpPasswordsDAO* mysql_dao.TmpPasswordsDAO
-	ChatsDAO *mysql_dao.ChatsDAO
-	ChatUsersDAO *mysql_dao.ChatUsersDAO
+	UserDialogsDAO           *mysql_dao.UserDialogsDAO
+	UserContactsDAO          *mysql_dao.UserContactsDAO
+	MessageBoxesDAO          *mysql_dao.MessageBoxesDAO
+	MessagesDAO              *mysql_dao.MessagesDAO
+	SeqUpdatesNgenDAO        *mysql_dao.SeqUpdatesNgenDAO
+	ClientUpdatesStateDAO    *mysql_dao.ClientUpdatesStateDAO
+	UserNotifySettingsDAO    *mysql_dao.UserNotifySettingsDAO
+	ReportsDAO               *mysql_dao.ReportsDAO
+	UserPrivacysDAO          *mysql_dao.UserPrivacysDAO
+	TmpPasswordsDAO          *mysql_dao.TmpPasswordsDAO
+	ChatsDAO                 *mysql_dao.ChatsDAO
+	ChatUsersDAO             *mysql_dao.ChatUsersDAO
 }
 
 // TODO(@benqi): 一主多从
@@ -100,11 +100,11 @@ func InstallMysqlDAOManager(clients map[string]*sqlx.DB) {
 	}
 }
 
-func  GetMysqlDAOListMap() map[string]*MysqlDAOList {
+func GetMysqlDAOListMap() map[string]*MysqlDAOList {
 	return mysqlDAOManager.daoListMap
 }
 
-func  GetMysqlDAOList(dbName string) (daoList *MysqlDAOList) {
+func GetMysqlDAOList(dbName string) (daoList *MysqlDAOList) {
 	daoList, ok := mysqlDAOManager.daoListMap[dbName]
 	if !ok {
 		glog.Errorf("GetMysqlDAOList - Not found daoList: %s", dbName)
@@ -311,7 +311,7 @@ func InstallRedisDAOManager(clients map[string]*redis_client.RedisPool) {
 	}
 }
 
-func  GetRedisDAOList(redisName string) (daoList *RedisDAOList) {
+func GetRedisDAOList(redisName string) (daoList *RedisDAOList) {
 	daoList, ok := redisDAOManager.daoListMap[redisName]
 	if !ok {
 		glog.Errorf("GetRedisDAOList - Not found daoList: %s", redisName)
@@ -319,7 +319,7 @@ func  GetRedisDAOList(redisName string) (daoList *RedisDAOList) {
 	return
 }
 
-func  GetRedisDAOListMap() map[string]*RedisDAOList {
+func GetRedisDAOListMap() map[string]*RedisDAOList {
 	return redisDAOManager.daoListMap
 }
 

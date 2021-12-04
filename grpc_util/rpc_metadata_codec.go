@@ -24,15 +24,14 @@ import (
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/zproto"
+	"github.com/mugabutie/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/zproto"
 	"google.golang.org/grpc/metadata"
 )
 
 var (
 	headerRpcMetadata = "rpc_metadata"
 )
-
 
 func RpcMetadataFromMD(md metadata.MD) (*zproto.RpcMetadata, error) {
 	val := metautils.NiceMD(md).Get(headerRpcMetadata)
@@ -44,8 +43,8 @@ func RpcMetadataFromMD(md metadata.MD) (*zproto.RpcMetadata, error) {
 	buf, err := base64.StdEncoding.DecodeString(val)
 	if err != nil {
 		return nil, fmt.Errorf("Base64 decode error, rpc_metadata: %s, error: %v", val, err)
-			//panic(mtproto.NewRpcError(int32(mtproto.TLRpcErrorCodes_OTHER2),
-			//	fmt.Sprintf("Base64 decode error, rpc_metadata: %s", val)))
+		//panic(mtproto.NewRpcError(int32(mtproto.TLRpcErrorCodes_OTHER2),
+		//	fmt.Sprintf("Base64 decode error, rpc_metadata: %s", val)))
 	}
 
 	rpcMetadata := &zproto.RpcMetadata{}

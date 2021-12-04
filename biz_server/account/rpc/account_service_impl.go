@@ -18,18 +18,18 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
-	"golang.org/x/net/context"
 	"github.com/cosiner/gohper/errors"
-	"github.com/nebulaim/telegramd/biz_model/model"
+	"github.com/golang/glog"
+	base2 "github.com/mugabutie/telegramd/base/base"
+	base "github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	"github.com/mugabutie/telegramd/biz_server/delivery"
+	"github.com/mugabutie/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/mtproto"
+	"golang.org/x/net/context"
 	"time"
-	"github.com/nebulaim/telegramd/grpc_util"
-	base2 "github.com/nebulaim/telegramd/base/base"
-	base "github.com/nebulaim/telegramd/biz_model/base"
-	"github.com/nebulaim/telegramd/biz_server/delivery"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 )
 
 type AccountServiceImpl struct {
@@ -245,8 +245,6 @@ func (s *AccountServiceImpl) AccountResetAuthorization(ctx context.Context, requ
 
 	_ = grpc_util.RpcMetadataFromIncoming(ctx)
 	// TODO(@benqi): Terminal session
-
-
 
 	return nil, errors.New("Not impl")
 }

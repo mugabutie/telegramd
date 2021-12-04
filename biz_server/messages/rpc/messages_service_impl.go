@@ -19,17 +19,17 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
+	base2 "github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	delivery2 "github.com/mugabutie/telegramd/biz_server/delivery"
+	"github.com/mugabutie/telegramd/frontend/id"
+	"github.com/mugabutie/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/mtproto"
 	"golang.org/x/net/context"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"time"
-	"github.com/nebulaim/telegramd/biz_model/base"
-	base2 "github.com/nebulaim/telegramd/base/base"
-	"github.com/nebulaim/telegramd/biz_model/model"
-	"github.com/nebulaim/telegramd/grpc_util"
-	delivery2 "github.com/nebulaim/telegramd/biz_server/delivery"
-	"github.com/nebulaim/telegramd/frontend/id"
 	"math"
+	"time"
 )
 
 type MessagesServiceImpl struct {
@@ -221,7 +221,7 @@ message TL_messages_getHistory {
   int32 max_id = 6;
   int32 min_id = 7;
 };
- */
+*/
 // messages.getHistory#afa92846 peer:InputPeer offset_id:int offset_date:int add_offset:int limit:int max_id:int min_id:int = messages.Messages;
 // messages.messages#8c718e87 messages:Vector<Message> chats:Vector<Chat> users:Vector<User> = messages.Messages;
 func (s *MessagesServiceImpl) MessagesGetHistory(ctx context.Context, request *mtproto.TLMessagesGetHistory) (*mtproto.Messages_Messages, error) {
@@ -279,7 +279,6 @@ func (s *MessagesServiceImpl) MessagesGetHistory(ctx context.Context, request *m
 	return messagesMessages.ToMessages_Messages(), nil
 }
 
-
 // messages.search#39e9ea0 flags:# peer:InputPeer q:string from_id:flags.0?InputUser filter:MessagesFilter min_date:int max_date:int offset_id:int add_offset:int limit:int max_id:int min_id:int = messages.Messages;
 // {peer:<inputPeerUser:<user_id:2 access_hash:5537087501845505974 > > filter:<inputMessagesFilterUrl:<> > }
 func (s *MessagesServiceImpl) MessagesSearch(ctx context.Context, request *mtproto.TLMessagesSearch) (*mtproto.Messages_Messages, error) {
@@ -313,7 +312,7 @@ func (s *MessagesServiceImpl) MessagesGetUnreadMentions(ctx context.Context, req
 	  offset_peer: { inputPeerEmpty },
 	  limit: 20 [INT],
 	},
- */
+*/
 func (s *MessagesServiceImpl) MessagesGetDialogs(ctx context.Context, request *mtproto.TLMessagesGetDialogs) (*mtproto.Messages_Dialogs, error) {
 	glog.Infof("MessagesGetDialogs - Process: {%v}", request)
 
@@ -384,22 +383,22 @@ func (s *MessagesServiceImpl) MessagesGetDialogs(ctx context.Context, request *m
 func (s *MessagesServiceImpl) MessagesReadHistory(ctx context.Context, request *mtproto.TLMessagesReadHistory) (*mtproto.Messages_AffectedMessages, error) {
 	glog.Infof("MessagesReadHistory - Process: {%v}", request)
 
-/*
-	md := grpc_util.RpcMetadataFromIncoming(ctx)
+	/*
+		md := grpc_util.RpcMetadataFromIncoming(ctx)
 
-	var affected *mtproto.TLMessagesAffectedMessages = nil
+		var affected *mtproto.TLMessagesAffectedMessages = nil
 
-	switch base.FromInputPeer(request.Peer) {
-	case base.PEER_SELF:
-	case base.PEER_USER:
-		affected = model.GetUpdatesModel().GetAffectedMessage(md.UserId, request.MaxId)
-	case base.PEER_CHAT:
-	case base.PEER_CHANNEL:
-	default:
-	}
- */
+		switch base.FromInputPeer(request.Peer) {
+		case base.PEER_SELF:
+		case base.PEER_USER:
+			affected = model.GetUpdatesModel().GetAffectedMessage(md.UserId, request.MaxId)
+		case base.PEER_CHAT:
+		case base.PEER_CHANNEL:
+		default:
+		}
+	*/
 
- 	// TODO(@benqi): 实现逻辑
+	// TODO(@benqi): 实现逻辑
 	affected := &mtproto.TLMessagesAffectedMessages{}
 	affected.Pts = -1
 	affected.PtsCount = 0
@@ -427,7 +426,6 @@ func (s *MessagesServiceImpl) MessagesDeleteHistory(ctx context.Context, request
 //   glog.Info("Process: %v", request)
 //   return nil, nil
 // }
-
 
 /*
 	// messages.sendMessage#fa88427a flags:# no_webpage:flags.1?true silent:flags.5?true background:flags.6?true clear_draft:flags.7?true peer:InputPeer reply_to_msg_id:flags.0?int message:string random_id:long reply_markup:flags.2?ReplyMarkup entities:flags.3?Vector<MessageEntity> = Updates;
@@ -472,7 +470,7 @@ func (s *MessagesServiceImpl) MessagesDeleteHistory(ctx context.Context, request
 	  int32 reply_to_msg_id = 13;
 	  repeated MessageEntity entities = 14;
 	}
- */
+*/
 func (s *MessagesServiceImpl) MessagesSendMessage(ctx context.Context, request *mtproto.TLMessagesSendMessage) (reply *mtproto.Updates, err error) {
 	glog.Infof("MessagesSendMessage - Process: {%v}", request)
 
@@ -816,7 +814,7 @@ func (s *MessagesServiceImpl) MessagesAddChatUser(ctx context.Context, request *
 	messageService.FromId = md.UserId
 	messageService.ToId = peer.ToPeer()
 	// mtproto.MakePeer(&mtproto.TLPeerChat{chat.Id})
-	action := &mtproto.TLMessageActionChatAddUser {}
+	action := &mtproto.TLMessageActionChatAddUser{}
 	action.Users = append(action.Users, addChatUserId)
 
 	messageService.Action = action.ToMessageAction()
@@ -1065,9 +1063,9 @@ func (s *MessagesServiceImpl) MessagesCreateChat(ctx context.Context, request *m
 		case *mtproto.InputUser_InputUser:
 			chatUserIdList = append(chatUserIdList, u.GetInputUser().UserId)
 		}
- 	}
+	}
 
- 	chat, participants := model.GetChatModel().CreateChat(md.UserId, request.Title, chatUserIdList, md.ClientMsgId)
+	chat, participants := model.GetChatModel().CreateChat(md.UserId, request.Title, chatUserIdList, md.ClientMsgId)
 	chatUserIdList = append(chatUserIdList, md.UserId)
 	peer := &base.PeerUtil{}
 	peer.PeerType = base.PEER_CHAT

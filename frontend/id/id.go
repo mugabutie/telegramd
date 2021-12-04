@@ -17,7 +17,7 @@
 
 package id
 
-import "github.com/nebulaim/telegramd/base/snowflake"
+import "github.com/mugabutie/telegramd/base/snowflake"
 
 var id *snowflake.IdWorker
 
@@ -26,16 +26,16 @@ var id *snowflake.IdWorker
 //}
 
 const (
-	workerId	   	= int64(1)
-	dataCenterId	= int64(1)
-	twepoch        	= int64(1288834974657)
+	workerId     = int64(1)
+	dataCenterId = int64(1)
+	twepoch      = int64(1288834974657)
 )
 
-func init()  {
+func init() {
 	id, _ = snowflake.NewIdWorker(workerId, dataCenterId, twepoch)
 }
 
-func NextId() (int64) {
+func NextId() int64 {
 	r, _ := id.NextId()
 	return r
 }

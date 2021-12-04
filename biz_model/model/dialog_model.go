@@ -18,18 +18,18 @@
 package model
 
 import (
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/biz_model/base"
-	"sync"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
 	"github.com/golang/glog"
-	base2 "github.com/nebulaim/telegramd/base/base"
+	base2 "github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/mtproto"
+	"sync"
 	"time"
 )
 
 var (
-	dialogInstance *dialogModel
+	dialogInstance     *dialogModel
 	dialogInstanceOnce sync.Once
 )
 
@@ -43,7 +43,7 @@ func GetDialogModel() *dialogModel {
 	return dialogInstance
 }
 
-func dialogDOToDialog(dialogDO* dataobject.UserDialogsDO) *mtproto.TLDialog {
+func dialogDOToDialog(dialogDO *dataobject.UserDialogsDO) *mtproto.TLDialog {
 	dialog := &mtproto.TLDialog{}
 	dialog.Pinned = dialogDO.IsPinned == 1
 	switch dialogDO.PeerType {
@@ -245,7 +245,7 @@ func (m *dialogModel) CreateOrUpdateByLastMessage(userId int32, peerType int32, 
 
 	date := int32(time.Now().Unix())
 
-	dialog :=slave.SelectByPeer(userId, int8(peerType), peerId)
+	dialog := slave.SelectByPeer(userId, int8(peerType), peerId)
 	if dialog == nil {
 		dialog = &dataobject.UserDialogsDO{}
 		dialog.UserId = userId

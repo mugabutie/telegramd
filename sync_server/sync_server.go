@@ -19,15 +19,15 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/sync_server/rpc"
+	"github.com/mugabutie/telegramd/zproto"
 	"google.golang.org/grpc"
 	"net"
-	"github.com/nebulaim/telegramd/zproto"
-	"github.com/nebulaim/telegramd/base/redis_client"
-	"github.com/BurntSushi/toml"
-	"fmt"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/sync_server/rpc"
 )
 
 func init() {
@@ -40,9 +40,9 @@ type RpcServerConfig struct {
 	Addr string
 }
 
-type SyncServerConfig struct{
-	Server 		*RpcServerConfig
-	Redis 		[]redis_client.RedisConfig
+type SyncServerConfig struct {
+	Server *RpcServerConfig
+	Redis  []redis_client.RedisConfig
 }
 
 // 整合各服务，方便开发调试

@@ -19,18 +19,18 @@ package server
 
 import (
 	"github.com/golang/glog"
-	net2 "github.com/nebulaim/telegramd/net"
-	. "github.com/nebulaim/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/frontend/auth_key"
+	"github.com/mugabutie/telegramd/frontend/client"
+	"github.com/mugabutie/telegramd/frontend/rpc"
+	"github.com/mugabutie/telegramd/grpc_util"
+	. "github.com/mugabutie/telegramd/mtproto"
+	net2 "github.com/mugabutie/telegramd/net"
 	"net"
-	"github.com/nebulaim/telegramd/frontend/rpc"
-	"github.com/nebulaim/telegramd/frontend/client"
-	"github.com/nebulaim/telegramd/frontend/auth_key"
-	"github.com/nebulaim/telegramd/grpc_util"
 )
 
 type Server struct {
-	Server      *net2.Server
-	cacheKeys	*auth_key.AuthKeyCacheManager
+	Server    *net2.Server
+	cacheKeys *auth_key.AuthKeyCacheManager
 }
 
 func NewServer(addr string) (s *Server) {
@@ -43,7 +43,7 @@ func NewServer(addr string) (s *Server) {
 	return
 }
 
-func (s* Server) Serve(rpcClient *grpc_util.RPCClient, syncRpcClient *rpc.SyncRPCClient) {
+func (s *Server) Serve(rpcClient *grpc_util.RPCClient, syncRpcClient *rpc.SyncRPCClient) {
 	glog.Info("Serve...")
 
 	go syncRpcClient.RunUpdatesStreamLoop(s.Server)
@@ -63,7 +63,7 @@ func (s* Server) Serve(rpcClient *grpc_util.RPCClient, syncRpcClient *rpc.SyncRP
 	}
 }
 
-func (s* Server) sessionLoop(c *client.Client) {
+func (s *Server) sessionLoop(c *client.Client) {
 	// client := client.NewClient(c)
 	// .Info("NewClient, sessionId: ", session.ID(), ", addr: ", client.RemoteAddr)
 
@@ -89,7 +89,7 @@ func (s* Server) sessionLoop(c *client.Client) {
 		// mtprotoMessage := &mtprotoMessage2
 		//m1, ok1 := msg.(EncryptedMessage2)
 		//m2, _ := msg.(UnencryptedMessage)
- 		if c.Codec.State == CODEC_CONNECTED {
+		if c.Codec.State == CODEC_CONNECTED {
 			switch msg.(type) {
 			case *EncryptedMessage2:
 				// 第一个包
@@ -108,21 +108,21 @@ func (s* Server) sessionLoop(c *client.Client) {
 				}
 			default:
 				// 不可能发生
-				glog.Errorf("Unknown error");
+				glog.Errorf("Unknown error")
 				return
 			}
 		}
 
 		switch c.Codec.State {
 		case CODEC_req_pq,
-			 CODEC_resPQ,
-			 CODEC_req_DH_params,
-			 CODEC_server_DH_params_ok,
-			 CODEC_server_DH_params_fail,
-			 CODEC_set_client_DH_params,
-			 CODEC_dh_gen_ok,
-			 CODEC_dh_gen_retry,
-			 CODEC_dh_gen_fail:
+			CODEC_resPQ,
+			CODEC_req_DH_params,
+			CODEC_server_DH_params_ok,
+			CODEC_server_DH_params_fail,
+			CODEC_set_client_DH_params,
+			CODEC_dh_gen_ok,
+			CODEC_dh_gen_retry,
+			CODEC_dh_gen_fail:
 
 			m, _ := msg.(*UnencryptedMessage)
 			err = c.OnHandshake(m)
@@ -140,7 +140,7 @@ func (s* Server) sessionLoop(c *client.Client) {
 				err = c.OnUnencryptedMessage(m)
 			}
 
-			if err!= nil {
+			if err != nil {
 				return
 			}
 

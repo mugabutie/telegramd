@@ -18,15 +18,15 @@
 package model
 
 import (
-	"github.com/nebulaim/telegramd/base/redis_client"
-	"github.com/golang/glog"
 	"fmt"
 	"github.com/garyburd/redigo/redis"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
 	"strings"
-	"github.com/nebulaim/telegramd/base/base"
-	"time"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 	"sync"
+	"time"
 )
 
 // - 简单设计思路(@benqi)
@@ -52,9 +52,9 @@ import (
 //    - ......
 // auth_key_id ->
 const (
-	ONLINE_TIMEOUT = 15  			// 15秒
-	CHECK_ONLINE_TIMEOUT = 17  		// 17秒, 15+2秒的误差
-	onlineKeyPrefix = "online"		//
+	ONLINE_TIMEOUT       = 15       // 15秒
+	CHECK_ONLINE_TIMEOUT = 17       // 17秒, 15+2秒的误差
+	onlineKeyPrefix      = "online" //
 )
 
 //var p1, p2 struct {
@@ -64,14 +64,14 @@ const (
 //}
 
 type SessionStatus struct {
-	UserId			int32		//
+	UserId int32 //
 
-	AuthKeyId 		int64		//
-	SessionId		int64		//
+	AuthKeyId int64 //
+	SessionId int64 //
 
-	ServerId		int32		// ServerId
-	NetlibSessionId	int64		// 网络库SessionID，不是
-	Now				int64		// 上报时间
+	ServerId        int32 // ServerId
+	NetlibSessionId int64 // 网络库SessionID，不是
+	Now             int64 // 上报时间
 }
 
 func (status *SessionStatus) ToKey() string {
@@ -125,7 +125,7 @@ type onlineStatusModel struct {
 }
 
 var (
-	statusInstance *onlineStatusModel
+	statusInstance     *onlineStatusModel
 	statusInstanceOnce sync.Once
 )
 
@@ -170,7 +170,7 @@ func (s *onlineStatusModel) SetOffline(status *SessionStatus) (err error) {
 func (s *onlineStatusModel) getOnline(conn redis.Conn, userId int32) (statusList []*SessionStatus, err error) {
 	// 设置键盘
 	fmt.Printf("%s_%d\n", onlineKeyPrefix, userId)
-	m, err := redis.StringMap(conn.Do("HGETALL", fmt.Sprintf("%s_%d", onlineKeyPrefix, userId)));
+	m, err := redis.StringMap(conn.Do("HGETALL", fmt.Sprintf("%s_%d", onlineKeyPrefix, userId)))
 	if err != nil {
 		glog.Errorf("GetOnlineByUserId - HGETALL {online_%d}, error: %s", userId, err)
 		return
@@ -185,7 +185,7 @@ func (s *onlineStatusModel) getOnline(conn redis.Conn, userId int32) (statusList
 			continue
 		}
 
-		if time.Now().Unix() < status.Now + CHECK_ONLINE_TIMEOUT {
+		if time.Now().Unix() < status.Now+CHECK_ONLINE_TIMEOUT {
 			statusList = append(statusList, status)
 			fmt.Println(status)
 		}

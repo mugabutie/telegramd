@@ -17,8 +17,8 @@
 
 package main
 
-import "github.com/nebulaim/telegramd/biz_server/langpack/rpc"
+import "github.com/mugabutie/telegramd/biz_server/langpack/rpc"
 
-func main()  {
+func main() {
 	rpc.DoMainServer()
 }

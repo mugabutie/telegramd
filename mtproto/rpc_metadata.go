@@ -18,24 +18,24 @@
 package mtproto
 
 import (
+	"github.com/mugabutie/telegramd/base/base"
 	"google.golang.org/grpc/metadata"
 	"strconv"
-	"github.com/nebulaim/telegramd/base/base"
 )
 
 type RpcMetaData struct {
-	ServerId	int32
+	ServerId        int32
 	NetlibSessionId int64
-	ClientAddr	string
-	AuthId		int64
-	SessionId	int64
+	ClientAddr      string
+	AuthId          int64
+	SessionId       int64
 
-	TraceId 	int64
-	SpanId		int64
+	TraceId     int64
+	SpanId      int64
 	ReceiveTime int64
 
 	// 用户ID
-	UserId		int32
+	UserId int32
 }
 
 func getFirstKeyVal(md metadata.MD, k string) (string, bool) {
@@ -82,7 +82,7 @@ func (m *RpcMetaData) Decode(md metadata.MD) {
 	}
 }
 
-func (m *RpcMetaData) Encode() (metadata.MD) {
+func (m *RpcMetaData) Encode() metadata.MD {
 	return metadata.Pairs(
 		"serverid", strconv.FormatInt(int64(m.ServerId), 10),
 		"clientaddr", m.ClientAddr,

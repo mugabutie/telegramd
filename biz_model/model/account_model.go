@@ -18,21 +18,21 @@
 package model
 
 import (
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/mtproto"
 	"sync"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
 	"time"
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/biz_model/base"
 )
 
 const (
-	TOKEN_TYPE_APNS = 1
-	TOKEN_TYPE_GCM = 2
-	TOKEN_TYPE_MPNS = 3
-	TOKEN_TYPE_SIMPLE_PUSH = 4
+	TOKEN_TYPE_APNS         = 1
+	TOKEN_TYPE_GCM          = 2
+	TOKEN_TYPE_MPNS         = 3
+	TOKEN_TYPE_SIMPLE_PUSH  = 4
 	TOKEN_TYPE_UBUNTU_PHONE = 5
-	TOKEN_TYPE_BLACKBERRY = 6
+	TOKEN_TYPE_BLACKBERRY   = 6
 	// Android里使用
 	TOKEN_TYPE_INTERNAL_PUSH = 7
 )
@@ -42,7 +42,7 @@ type accountModel struct {
 }
 
 var (
-	accountInstance *accountModel
+	accountInstance     *accountModel
 	accountInstanceOnce sync.Once
 )
 

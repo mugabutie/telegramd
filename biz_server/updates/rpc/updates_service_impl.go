@@ -18,14 +18,14 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
-	"golang.org/x/net/context"
 	"errors"
-	"github.com/nebulaim/telegramd/grpc_util"
-	"github.com/nebulaim/telegramd/biz_model/model"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	"github.com/mugabutie/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/mtproto"
+	"golang.org/x/net/context"
 	"time"
-	"github.com/nebulaim/telegramd/biz_model/base"
 )
 
 type UpdatesServiceImpl struct {

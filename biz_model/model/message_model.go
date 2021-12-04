@@ -18,20 +18,20 @@
 package model
 
 import (
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/biz_model/base"
-	"sync"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 	"github.com/golang/glog"
-	base2 "github.com/nebulaim/telegramd/base/base"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"time"
 	"github.com/golang/protobuf/proto"
+	base2 "github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/mtproto"
+	"sync"
+	"time"
 )
 
 const (
-	MESSAGE_TYPE_UNKNOWN = 0
-	MESSAGE_TYPE_MESSAGE = 1
+	MESSAGE_TYPE_UNKNOWN         = 0
+	MESSAGE_TYPE_MESSAGE         = 1
 	MESSAGE_TYPE_MESSAGE_SERVICE = 2
 )
 const (
@@ -44,7 +44,7 @@ type messageModel struct {
 }
 
 var (
-	messageInstance *messageModel
+	messageInstance     *messageModel
 	messageInstanceOnce sync.Once
 )
 
@@ -98,7 +98,7 @@ func (m *messageModel) GetMessagesByPeerAndMessageIdList(userId int32, idList []
 	return m.getMessagesByMessageBoxes(boxesList, true)
 }
 
-func (m *messageModel) GetMessagesByUserIdPeerOffsetLimit(userId int32, peerType , peerId int32, offset int32, limit int32) []*mtproto.Message {
+func (m *messageModel) GetMessagesByUserIdPeerOffsetLimit(userId int32, peerType, peerId int32, offset int32, limit int32) []*mtproto.Message {
 	// 1. 先从message_boxes取出message_id
 	boxesList := dao.GetMessageBoxesDAO(dao.DB_SLAVE).SelectByPeerOffsetLimit(userId, int8(peerType), peerId, offset, limit)
 	glog.Infof("GetMessagesByUserIdPeerOffsetLimit - boxesList: %v", boxesList)
@@ -162,12 +162,12 @@ func (m *messageModel) GetLastPtsByUserId(userId int32) int32 {
 	if do == nil {
 		return 0
 	} else {
-		return  do.Pts
+		return do.Pts
 	}
 }
 
 // CreateMessage
-func (m *messageModel) CreateMessageBoxes(userId, fromId int32, peerType int32, peerId int32, incoming bool, messageId int32) (int32) {
+func (m *messageModel) CreateMessageBoxes(userId, fromId int32, peerType int32, peerId int32, incoming bool, messageId int32) int32 {
 	messageBox := &dataobject.MessageBoxesDO{}
 	if incoming {
 		messageBox.UserId = userId

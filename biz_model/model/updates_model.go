@@ -18,9 +18,9 @@
 package model
 
 import (
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/mtproto"
 	"sync"
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 	"time"
 )
 
@@ -28,7 +28,7 @@ type updatesModel struct {
 }
 
 var (
-	updatesInstance *updatesModel
+	updatesInstance     *updatesModel
 	updatesInstanceOnce sync.Once
 )
 

@@ -18,12 +18,12 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
-	"golang.org/x/net/context"
-	"github.com/BurntSushi/toml"
 	"fmt"
-	"github.com/nebulaim/telegramd/biz_server/langpack/model"
+	"github.com/BurntSushi/toml"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_server/langpack/model"
+	"github.com/mugabutie/telegramd/mtproto"
+	"golang.org/x/net/context"
 )
 
 const (
@@ -32,7 +32,7 @@ const (
 
 var langs model.LangPacks
 
-func init()  {
+func init() {
 	if _, err := toml.DecodeFile(LANG_PACK_EN_FILE, &langs); err != nil {
 		panic(err)
 	}
@@ -43,7 +43,6 @@ type LangpackServiceImpl struct {
 
 func (s *LangpackServiceImpl) LangpackGetLangPack(ctx context.Context, request *mtproto.TLLangpackGetLangPack) (*mtproto.LangPackDifference, error) {
 	glog.Infof("LangpackGetLangPack - Process: %v", request)
-
 
 	if _, err := toml.DecodeFile(LANG_PACK_EN_FILE, &langs); err != nil {
 		fmt.Errorf("%s\n", err)

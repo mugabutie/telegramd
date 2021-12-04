@@ -17,12 +17,12 @@
 
 package model
 
-import "github.com/nebulaim/telegramd/mtproto"
+import "github.com/mugabutie/telegramd/mtproto"
 
 type LangPacks struct {
-	LangCode    string
-	Version     int32
-	Strings     []*mtproto.TLLangPackString
+	LangCode          string
+	Version           int32
+	Strings           []*mtproto.TLLangPackString
 	StringPluralizeds []*mtproto.TLLangPackStringPluralized
-	StringDeleteds []*mtproto.TLLangPackStringDeleted
+	StringDeleteds    []*mtproto.TLLangPackStringDeleted
 }

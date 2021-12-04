@@ -20,7 +20,7 @@ package mysql_dao
 import (
 	// "github.com/golang/glog"
 	"github.com/jmoiron/sqlx"
-	// do "github.com/nebulaim/telegramd/biz_model/dal/dataobject"
+	// do "github.com/mugabutie/telegramd/biz_model/dal/dataobject"
 	"fmt"
 	"github.com/golang/glog"
 	"strings"

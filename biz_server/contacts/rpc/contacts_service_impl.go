@@ -18,14 +18,14 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/mtproto"
-	"golang.org/x/net/context"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/grpc_util"
-	"github.com/nebulaim/telegramd/biz_model/model"
-	"github.com/nebulaim/telegramd/biz_model/base"
 	"github.com/cosiner/gohper/errors"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	"github.com/mugabutie/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/mtproto"
+	"golang.org/x/net/context"
 )
 
 type ContactsServiceImpl struct {

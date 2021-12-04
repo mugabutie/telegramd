@@ -18,7 +18,7 @@
 package redis_dao
 
 import (
-	"github.com/nebulaim/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/base/redis_client"
 	"testing"
 )
 

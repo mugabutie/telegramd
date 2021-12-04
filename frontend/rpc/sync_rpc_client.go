@@ -18,14 +18,14 @@
 package rpc
 
 import (
-	"github.com/golang/glog"
-	"google.golang.org/grpc"
-	"github.com/nebulaim/telegramd/zproto"
-	"io"
 	"context"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/mtproto"
+	net2 "github.com/mugabutie/telegramd/net"
+	"github.com/mugabutie/telegramd/zproto"
+	"google.golang.org/grpc"
+	"io"
 	"time"
-	"github.com/nebulaim/telegramd/mtproto"
-	net2 "github.com/nebulaim/telegramd/net"
 )
 
 type SyncRPCClient struct {
@@ -45,7 +45,7 @@ func NewSyncRPCClient(target string) (c *SyncRPCClient, err error) {
 }
 
 // TODO(@benqi): 可能有问题
-func (c* SyncRPCClient) RunUpdatesStreamLoop(server *net2.Server) {
+func (c *SyncRPCClient) RunUpdatesStreamLoop(server *net2.Server) {
 	auth := &zproto.ServerAuthReq{}
 	auth.ServerId = 1
 	auth.ServerName = "frontend"
@@ -59,7 +59,6 @@ func (c* SyncRPCClient) RunUpdatesStreamLoop(server *net2.Server) {
 			time.Sleep(10 * time.Second)
 			continue
 		}
-
 
 		for {
 			update, err := stream.Recv()
@@ -83,12 +82,12 @@ func (c* SyncRPCClient) RunUpdatesStreamLoop(server *net2.Server) {
 }
 
 // TODO(@benqi): 使用chan
-func sendBySessionID(server *net2.Server, sessionId int64, message mtproto.TLObject)  {
+func sendBySessionID(server *net2.Server, sessionId int64, message mtproto.TLObject) {
 	session := server.GetSession(uint64(sessionId))
 	if session != nil {
 		m := &mtproto.EncryptedMessage2{
-			NeedAck : false,
-			Object:   message,
+			NeedAck: false,
+			Object:  message,
 		}
 
 		glog.Infof("sendBySessionID - send by session: %d, message: {%v}", sessionId, m)

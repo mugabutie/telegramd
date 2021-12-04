@@ -18,16 +18,16 @@
 package main
 
 import (
-	server2 "github.com/nebulaim/telegramd/frontend/server"
-	"github.com/nebulaim/telegramd/frontend/rpc"
 	"flag"
-	"github.com/nebulaim/telegramd/base/mysql_client"
-	"github.com/nebulaim/telegramd/base/redis_client"
-	"github.com/BurntSushi/toml"
 	"fmt"
+	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/grpc_util"
+	"github.com/mugabutie/telegramd/base/mysql_client"
+	"github.com/mugabutie/telegramd/base/redis_client"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/frontend/rpc"
+	server2 "github.com/mugabutie/telegramd/frontend/server"
+	"github.com/mugabutie/telegramd/grpc_util"
 )
 
 func init() {
@@ -41,16 +41,16 @@ type ServerConfig struct {
 
 type RpcClientConfig struct {
 	ServiceName string
-	Addr string
+	Addr        string
 }
 
-type FrontendConfig struct{
-	ServerId 	int32			// 服务器ID
-	Server 		*ServerConfig
-	BizRpcClient	*RpcClientConfig
-	SyncRpcClient	*RpcClientConfig
-	Mysql		[]mysql_client.MySQLConfig
-	Redis 		[]redis_client.RedisConfig
+type FrontendConfig struct {
+	ServerId      int32 // 服务器ID
+	Server        *ServerConfig
+	BizRpcClient  *RpcClientConfig
+	SyncRpcClient *RpcClientConfig
+	Mysql         []mysql_client.MySQLConfig
+	Redis         []redis_client.RedisConfig
 }
 
 func main() {

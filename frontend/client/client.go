@@ -18,42 +18,41 @@
 package client
 
 import (
-	net2 "github.com/nebulaim/telegramd/net"
-	. "github.com/nebulaim/telegramd/mtproto"
-	"net"
-	"github.com/golang/glog"
-	"math/big"
 	"errors"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 	"fmt"
-	"github.com/nebulaim/telegramd/frontend/id"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/frontend/id"
+	"github.com/mugabutie/telegramd/grpc_util"
+	. "github.com/mugabutie/telegramd/mtproto"
+	net2 "github.com/mugabutie/telegramd/net"
+	"github.com/mugabutie/telegramd/zproto"
+	"math/big"
+	"net"
 	"time"
-	"github.com/nebulaim/telegramd/grpc_util"
-	"github.com/nebulaim/telegramd/zproto"
 )
 
-
 type Client struct {
-	Session *net2.Session
+	Session   *net2.Session
 	RPCClient *grpc_util.RPCClient
-	Codec   *MTProtoCodec
+	Codec     *MTProtoCodec
 
 	RemoteAddr net.Addr
 	LocalAddr  net.Addr
 
 	// TODO(@benqi): 移到handshake处理器里
-	Nonce []byte			// 每连接缓存客户端生成的Nonce
-	ServerNonce []byte		// 每连接缓存服务生成的ServerNonce
-	NewNonce []byte
-	A *big.Int
-	P *big.Int
+	Nonce       []byte // 每连接缓存客户端生成的Nonce
+	ServerNonce []byte // 每连接缓存服务生成的ServerNonce
+	NewNonce    []byte
+	A           *big.Int
+	P           *big.Int
 }
 
 func NewClient(session *net2.Session, rpcClient *grpc_util.RPCClient) (c *Client) {
 	c = &Client{
-		Session: 	session,
-		RPCClient:	rpcClient,
-		Codec:		session.Codec().(*MTProtoCodec),
+		Session:   session,
+		RPCClient: rpcClient,
+		Codec:     session.Codec().(*MTProtoCodec),
 	}
 
 	c.RemoteAddr = c.Codec.RemoteAddr()
@@ -86,8 +85,8 @@ func (c *Client) OnHandshake(request *UnencryptedMessage) error {
 	}
 
 	m := &UnencryptedMessage{
-		NeedAck : false,
-		Object:	  reply,
+		NeedAck: false,
+		Object:  reply,
 	}
 
 	return c.Session.Send(m)
@@ -115,13 +114,13 @@ func (c *Client) OnEncryptedMessage(request *EncryptedMessage2) error {
 			return fmt.Errorf("onNewSessionCreated error!")
 		}
 
-		c.Codec.SessionId =  request.SessionId
+		c.Codec.SessionId = request.SessionId
 		c.Codec.Salt = newSessionCreated.ServerSalt
 
 		m := &EncryptedMessage2{
 			// NeedAck : false,
-			NeedAck : false,
-			Object:   newSessionCreated,
+			NeedAck: false,
+			Object:  newSessionCreated,
 		}
 
 		c.Session.Send(m)
@@ -180,19 +179,19 @@ func (c *Client) OnMessage(msgId int64, seqNo int32, request TLObject) error {
 
 		// TODO(@benqi): [权限判断](https://core.telegram.org/api/auth)
 		/*
-		 *	Only a small portion of the API methods are available to unauthorized users:
-	     *
-		 *	- auth.sendCode
-		 *	- auth.sendCall
-		 *	- auth.checkPhone
-		 *	- auth.signUp
-		 *	- auth.signIn
-		 *	- auth.importAuthorization
-		 *	- help.getConfig
-		 *	- help.getNearestDc
-		 *
-		 *	Other methods will result in an error: 401 UNAUTHORIZED.
-		 */
+				 *	Only a small portion of the API methods are available to unauthorized users:
+			     *
+				 *	- auth.sendCode
+				 *	- auth.sendCall
+				 *	- auth.checkPhone
+				 *	- auth.signUp
+				 *	- auth.signIn
+				 *	- auth.importAuthorization
+				 *	- help.getConfig
+				 *	- help.getNearestDc
+				 *
+				 *	Other methods will result in an error: 401 UNAUTHORIZED.
+		*/
 
 		glog.Info("rpc request authId: ", c.Codec.AuthKeyId)
 		// TODO(@benqi): 透传UserID
@@ -235,7 +234,7 @@ func (c *Client) OnMessage(msgId int64, seqNo int32, request TLObject) error {
 		// 构造rpc_result
 		reply = &TLRpcResult{
 			ReqMsgId: msgId,
-			Result: rpcResult,
+			Result:   rpcResult,
 		}
 	}
 
@@ -245,9 +244,9 @@ func (c *Client) OnMessage(msgId int64, seqNo int32, request TLObject) error {
 
 	// TODO(@benqi): 由底层处理，通过多种策略（gzip, msg_container等）来打包并发送给客户端
 	m := &EncryptedMessage2{
-		NeedAck : false,
-		SeqNo:	  seqNo,
-		Object:   reply,
+		NeedAck: false,
+		SeqNo:   seqNo,
+		Object:  reply,
 	}
 
 	return c.Session.Send(m)

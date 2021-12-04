@@ -508,7 +508,7 @@ package rpc
 import (
 	"github.com/golang/glog"
 	"golang.org/x/net/context"
-	"github.com/nebulaim/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/mtproto"
 )
 
 '''

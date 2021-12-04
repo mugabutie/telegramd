@@ -18,12 +18,12 @@
 package rpc
 
 import (
-	"golang.org/x/net/context"
-	"github.com/nebulaim/telegramd/zproto"
-	"github.com/nebulaim/telegramd/biz_model/model"
-	"sync"
 	"errors"
 	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/biz_model/model"
+	"github.com/mugabutie/telegramd/zproto"
+	"golang.org/x/net/context"
+	"sync"
 )
 
 type SyncServiceImpl struct {
@@ -63,7 +63,7 @@ func (s *SyncServiceImpl) unsafeExpire(sid int32) {
 
 func (s *SyncServiceImpl) PushUpdatesStream(auth *zproto.ServerAuthReq, stream zproto.RPCSync_PushUpdatesStreamServer) error {
 	// TODO(@benqi): chan数量
-	var update  chan *zproto.PushUpdatesData = make(chan *zproto.PushUpdatesData, 1000)
+	var update chan *zproto.PushUpdatesData = make(chan *zproto.PushUpdatesData, 1000)
 
 	var err error
 	s.withWriteLock(func() {

@@ -18,15 +18,15 @@
 package chat_test
 
 import (
+	"context"
 	"fmt"
 	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/zproto"
 	"google.golang.org/grpc"
-	"context"
-	"math/rand"
-	"github.com/nebulaim/telegramd/base/base"
 	"io"
+	"math/rand"
 	"time"
-	"github.com/nebulaim/telegramd/zproto"
 )
 
 func DoChatTestClient() {
@@ -62,7 +62,6 @@ func DoChatTestClient() {
 			chatMessages <- chatMessage
 		}
 	}()
-
 
 	go func() {
 		for {

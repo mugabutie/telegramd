@@ -18,16 +18,16 @@
 package grpc_util
 
 import (
-	"github.com/golang/glog"
-	"google.golang.org/grpc"
-	"github.com/nebulaim/telegramd/mtproto"
-	"fmt"
 	"context"
-	"google.golang.org/grpc/metadata"
-	"time"
-	"google.golang.org/grpc/status"
+	"fmt"
+	"github.com/golang/glog"
+	"github.com/mugabutie/telegramd/mtproto"
+	"github.com/mugabutie/telegramd/zproto"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"github.com/nebulaim/telegramd/zproto"
+	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
+	"time"
 )
 
 type RPCClient struct {
@@ -47,7 +47,7 @@ func NewRPCClient(target string) (c *RPCClient, err error) {
 }
 
 // 通用grpc转发器
-func (c* RPCClient) Invoke(rpcMetaData *zproto.RpcMetadata, object mtproto.TLObject) (mtproto.TLObject, error) {
+func (c *RPCClient) Invoke(rpcMetaData *zproto.RpcMetadata, object mtproto.TLObject) (mtproto.TLObject, error) {
 	t := mtproto.FindRPCContextTuple(object)
 	if t == nil {
 		err := fmt.Errorf("Invoke error: %v not regist!\n", object)

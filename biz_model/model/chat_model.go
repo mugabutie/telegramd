@@ -18,13 +18,13 @@
 package model
 
 import (
+	"github.com/mugabutie/telegramd/base/base"
+	"github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"github.com/mugabutie/telegramd/frontend/id"
+	"github.com/mugabutie/telegramd/mtproto"
 	"sync"
-	"github.com/nebulaim/telegramd/mtproto"
-	"github.com/nebulaim/telegramd/frontend/id"
 	"time"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
-	"github.com/nebulaim/telegramd/base/base"
-	"github.com/nebulaim/telegramd/biz_model/dal/dao"
 )
 
 type chatModel struct {
@@ -32,7 +32,7 @@ type chatModel struct {
 }
 
 var (
-	chatInstance *chatModel
+	chatInstance     *chatModel
 	chatInstanceOnce sync.Once
 )
 
@@ -80,13 +80,14 @@ func (m *chatModel) AddChatParticipant(chatId, chatUserId, inviterId int32, part
 	}
 	return
 }
+
 /*
 	chatEmpty#9ba2d800 id:int = Chat;
 	chat#d91cdd54 flags:# creator:flags.0?true kicked:flags.1?true left:flags.2?true admins_enabled:flags.3?true admin:flags.4?true deactivated:flags.5?true id:int title:string photo:ChatPhoto participants_count:int date:int version:int migrated_to:flags.6?InputChannel = Chat;
 	chatForbidden#7328bdb id:int title:string = Chat;
 	channel#cb44b1c flags:# creator:flags.0?true left:flags.2?true editor:flags.3?true broadcast:flags.5?true verified:flags.7?true megagroup:flags.8?true restricted:flags.9?true democracy:flags.10?true signatures:flags.11?true min:flags.12?true id:int access_hash:flags.13?long title:string username:flags.6?string photo:ChatPhoto date:int version:int restriction_reason:flags.9?string admin_rights:flags.14?ChannelAdminRights banned_rights:flags.15?ChannelBannedRights = Chat;
 	channelForbidden#289da732 flags:# broadcast:flags.5?true megagroup:flags.8?true id:int access_hash:long title:string until_date:flags.16?int = Chat;
- */
+*/
 func (m *chatModel) CreateChat(userId int32, title string, chatUserIdList []int32, random int64) (*mtproto.TLChat, *mtproto.TLChatParticipants) {
 	chat := &mtproto.TLChat{}
 	// chat.Id = int32(lastInsertId)
@@ -94,7 +95,7 @@ func (m *chatModel) CreateChat(userId int32, title string, chatUserIdList []int3
 	chat.Photo = mtproto.MakeChatPhoto(&mtproto.TLChatPhotoEmpty{})
 	chat.Date = int32(time.Now().Unix())
 	chat.Version = 1
-	chat.ParticipantsCount = int32(len(chatUserIdList))+1
+	chat.ParticipantsCount = int32(len(chatUserIdList)) + 1
 
 	chatDO := &dataobject.ChatsDO{}
 	chatDO.AccessHash = id.NextId()
@@ -124,7 +125,6 @@ func (m *chatModel) CreateChat(userId int32, title string, chatUserIdList []int3
 	participants.ChatId = chat.Id
 	participants.Version = 1
 
-
 	participants.Participants = append(participants.Participants, m.AddChatParticipant(chat.Id, userId, userId, 2))
 	// chatUserIdList := make([]int32, 0, len(request.GetUsers()))
 	for _, chatUserId := range chatUserIdList {
@@ -137,7 +137,7 @@ func (m *chatModel) CreateChat(userId int32, title string, chatUserIdList []int3
 	return chat, participants
 }
 
-func (m *chatModel) GetChat(chatId int32) (*mtproto.TLChat) {
+func (m *chatModel) GetChat(chatId int32) *mtproto.TLChat {
 	chat := &mtproto.TLChat{}
 	chatDO := dao.GetChatsDAO(dao.DB_SLAVE).Select(chatId)
 	if chatDO == nil {
@@ -152,7 +152,7 @@ func (m *chatModel) GetChat(chatId int32) (*mtproto.TLChat) {
 	return chat
 }
 
-func (m *chatModel) GetChatFull(chatId int32) (*mtproto.TLChatFull) {
+func (m *chatModel) GetChatFull(chatId int32) *mtproto.TLChatFull {
 	chatFull := &mtproto.TLChatFull{}
 
 	chatFull.Id = chatId
@@ -169,7 +169,7 @@ func (m *chatModel) GetChatFull(chatId int32) (*mtproto.TLChatFull) {
 //	return  chat, participants
 //}
 
-func (m *chatModel) GetChatParticipants(chatId int32) (*mtproto.TLChatParticipants) {
+func (m *chatModel) GetChatParticipants(chatId int32) *mtproto.TLChatParticipants {
 	chatUsersDOList := dao.GetChatUsersDAO(dao.DB_SLAVE).SelectByChatId(chatId)
 
 	// updateChatParticipants := &mtproto.TLUpdateChatParticipants{}

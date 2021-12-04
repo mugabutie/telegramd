@@ -18,14 +18,14 @@
 package model
 
 import (
-	"time"
+	dao2 "github.com/mugabutie/telegramd/biz_model/dal/dao"
+	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
 	"sync"
-	dao2 "github.com/nebulaim/telegramd/biz_model/dal/dao"
-	"github.com/nebulaim/telegramd/biz_model/dal/dataobject"
+	"time"
 )
 
 var (
-	sequenceInstance *sequnceModel
+	sequenceInstance     *sequnceModel
 	sequenceInstanceOnce sync.Once
 )
 
@@ -88,4 +88,3 @@ func (dao *sequnceModel) NextID(key string) (seq int64) {
 
 	return
 }
-

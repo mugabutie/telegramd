@@ -18,7 +18,7 @@
 package redis_client
 
 import (
-	"../../base/base"
+	"github.com/mugabutie/telegramd/base/base"
 )
 
 // Redis client config.

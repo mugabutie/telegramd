@@ -18,7 +18,7 @@
 package base
 
 import (
-	"../../mtproto"
+	"github.com/mugabutie/telegramd/mtproto"
 )
 
 type ReportReasonType int8

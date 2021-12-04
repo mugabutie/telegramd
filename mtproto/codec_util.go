@@ -18,7 +18,7 @@
 package mtproto
 
 import (
-	"github.com/mugabutie/telegramd/base/crypto"
+	"../base/crypto"
 	"time"
 )
 

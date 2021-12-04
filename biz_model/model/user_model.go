@@ -19,9 +19,9 @@ package model
 
 import (
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/base"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../base/base"
+	"../../biz_model/dal/dao"
+	"../../mtproto"
 	"sync"
 )
 

@@ -21,7 +21,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../mtproto"
 	"google.golang.org/grpc"
 	"reflect"
 	"testing"

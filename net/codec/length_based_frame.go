@@ -19,7 +19,7 @@ package codec
 
 import (
 	"bufio"
-	net2 "github.com/mugabutie/telegramd/net"
+	net2 "../../net"
 	"io"
 )
 

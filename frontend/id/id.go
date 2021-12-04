@@ -17,7 +17,7 @@
 
 package id
 
-import "github.com/mugabutie/telegramd/base/snowflake"
+import "../../base/snowflake"
 
 var id *snowflake.IdWorker
 

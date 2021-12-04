@@ -21,7 +21,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/crypto"
+	"../base/crypto"
 	"io"
 	"net"
 	"os"

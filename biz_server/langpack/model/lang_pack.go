@@ -17,7 +17,7 @@
 
 package model
 
-import "github.com/mugabutie/telegramd/mtproto"
+import "../../../mtproto"
 
 type LangPacks struct {
 	LangCode          string

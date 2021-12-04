@@ -20,7 +20,7 @@ package grpc_recovery2
 import (
 	"context"
 	"fmt"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../zproto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

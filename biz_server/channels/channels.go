@@ -17,7 +17,7 @@
 
 package main
 
-import "github.com/mugabutie/telegramd/biz_server/channels/rpc"
+import "../../biz_server/channels/rpc"
 
 func main() {
 	rpc.DoMainServer()

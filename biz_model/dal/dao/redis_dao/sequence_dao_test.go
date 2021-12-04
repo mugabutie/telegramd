@@ -18,7 +18,8 @@
 package redis_dao
 
 import (
-	"github.com/mugabutie/telegramd/base/redis_client"
+	"../../../../base/redis_client"
+	"fmt"
 	"testing"
 )
 
@@ -48,7 +49,8 @@ func TestNextID(t *testing.T) {
 
 	redisPool := redis_client.NewRedisPool(redisConfig)
 
-	_ := NewSequenceDAO(redisPool)
+	fmt.Print(redisPool)
+	//_ := NewSequenceDAO(redisPool)
 	//seq.NextID("1")
 	//seq.NextID("1")
 	//seq.NextID("1")

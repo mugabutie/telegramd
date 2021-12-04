@@ -21,11 +21,11 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
-	"github.com/mugabutie/telegramd/biz_model/model"
-	"github.com/mugabutie/telegramd/frontend/id"
-	. "github.com/mugabutie/telegramd/mtproto"
+	"../../biz_model/dal/dao"
+	"../../biz_model/dal/dataobject"
+	"../../biz_model/model"
+	"../../frontend/id"
+	. "../../mtproto"
 	"time"
 )
 

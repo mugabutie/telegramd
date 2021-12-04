@@ -21,9 +21,9 @@ import (
 	"errors"
 	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/model"
-	model2 "github.com/mugabutie/telegramd/biz_server/help/model"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../../biz_model/model"
+	model2 "../../../biz_server/help/model"
+	"../../../mtproto"
 	"golang.org/x/net/context"
 	"time"
 )

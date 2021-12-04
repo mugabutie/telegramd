@@ -21,7 +21,7 @@ import (
 	"context"
 	"errors"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../zproto"
 	"google.golang.org/grpc"
 	"net"
 	"sync"

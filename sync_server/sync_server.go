@@ -22,10 +22,10 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/redis_client"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/sync_server/rpc"
-	"github.com/mugabutie/telegramd/zproto"
+	"../base/redis_client"
+	"../biz_model/dal/dao"
+	"../sync_server/rpc"
+	"../zproto"
 	"google.golang.org/grpc"
 	"net"
 )
@@ -50,7 +50,7 @@ func main() {
 	flag.Parse()
 
 	syncServerConfig := &SyncServerConfig{}
-	if _, err := toml.DecodeFile("./sync_server.toml", syncServerConfig); err != nil {
+	if _, err := toml.DecodeFile("E:\\source\\telegramd\\sync_server\\sync_server.toml", syncServerConfig); err != nil {
 		fmt.Errorf("%s\n", err)
 		return
 	}

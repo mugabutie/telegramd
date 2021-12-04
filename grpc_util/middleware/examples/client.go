@@ -20,8 +20,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/mugabutie/telegramd/base/base"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../../base/base"
+	"../../../zproto"
 	"google.golang.org/grpc"
 	"io"
 	"math/rand"

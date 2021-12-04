@@ -19,7 +19,7 @@ package mtproto
 
 import (
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/crypto"
+	"../base/crypto"
 	"net"
 	"sync"
 	"time"

@@ -19,12 +19,12 @@ package server
 
 import (
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/frontend/auth_key"
-	"github.com/mugabutie/telegramd/frontend/client"
-	"github.com/mugabutie/telegramd/frontend/rpc"
-	"github.com/mugabutie/telegramd/grpc_util"
-	. "github.com/mugabutie/telegramd/mtproto"
-	net2 "github.com/mugabutie/telegramd/net"
+	"../../frontend/auth_key"
+	"../../frontend/client"
+	"../../frontend/rpc"
+	"../../grpc_util"
+	. "../../mtproto"
+	net2 "../../net"
 	"net"
 )
 

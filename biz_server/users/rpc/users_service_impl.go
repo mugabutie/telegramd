@@ -19,9 +19,9 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/grpc_util"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../../biz_model/dal/dao"
+	"../../../grpc_util"
+	"../../../mtproto"
 	"golang.org/x/net/context"
 )
 

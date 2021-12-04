@@ -19,11 +19,11 @@ package model
 
 import (
 	"github.com/golang/glog"
-	base2 "github.com/mugabutie/telegramd/base/base"
-	"github.com/mugabutie/telegramd/biz_model/base"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
-	"github.com/mugabutie/telegramd/mtproto"
+	base2 "../../base/base"
+	"../../biz_model/base"
+	"../../biz_model/dal/dao"
+	"../../biz_model/dal/dataobject"
+	"../../mtproto"
 	"sync"
 	"time"
 )

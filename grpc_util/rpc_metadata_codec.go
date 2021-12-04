@@ -24,8 +24,8 @@ import (
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
-	"github.com/mugabutie/telegramd/mtproto"
-	"github.com/mugabutie/telegramd/zproto"
+	"../mtproto"
+	"../zproto"
 	"google.golang.org/grpc/metadata"
 )
 

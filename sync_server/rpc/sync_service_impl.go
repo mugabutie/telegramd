@@ -20,8 +20,8 @@ package rpc
 import (
 	"errors"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/model"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../biz_model/model"
+	"../../zproto"
 	"golang.org/x/net/context"
 	"sync"
 )

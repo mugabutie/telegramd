@@ -19,7 +19,7 @@ package main
 
 import (
 	"flag"
-	"github.com/mugabutie/telegramd/sync_server/chat_test"
+	"../../../sync_server/chat_test"
 )
 
 func init() {

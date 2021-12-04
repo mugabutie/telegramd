@@ -20,9 +20,9 @@ package rpc
 import (
 	"context"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/mtproto"
-	net2 "github.com/mugabutie/telegramd/net"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../mtproto"
+	net2 "../../net"
+	"../../zproto"
 	"google.golang.org/grpc"
 	"io"
 	"time"

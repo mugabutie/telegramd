@@ -18,8 +18,8 @@
 package model
 
 import (
-	dao2 "github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	dao2 "../../biz_model/dal/dao"
+	"../../biz_model/dal/dataobject"
 	"sync"
 	"time"
 )

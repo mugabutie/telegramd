@@ -20,7 +20,7 @@ package delivery
 import (
 	"context"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/zproto"
+	"../../zproto"
 	"google.golang.org/grpc"
 )
 

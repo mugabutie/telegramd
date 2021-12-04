@@ -18,8 +18,8 @@
 package model
 
 import (
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../biz_model/dal/dao"
+	"../../mtproto"
 	"sync"
 	"time"
 )

@@ -18,7 +18,7 @@
 package mtproto
 
 import (
-	"github.com/mugabutie/telegramd/base/base"
+	"../base/base"
 	"google.golang.org/grpc/metadata"
 	"strconv"
 )

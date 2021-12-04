@@ -19,7 +19,7 @@ package base
 
 import (
 	"fmt"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../mtproto"
 )
 
 const (

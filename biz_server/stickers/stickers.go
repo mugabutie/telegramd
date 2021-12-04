@@ -17,7 +17,7 @@
 
 package main
 
-import "github.com/mugabutie/telegramd/biz_server/stickers/rpc"
+import "../../biz_server/stickers/rpc"
 
 func main() {
 	rpc.DoMainServer()

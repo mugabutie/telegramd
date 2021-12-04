@@ -22,7 +22,7 @@ import (
 //"net"
 //"github.com/golang/glog"
 //"google.golang.org/grpc"
-//"github.com/mugabutie/telegramd/mtproto"
+//"../../mtproto"
 )
 
 type RPCServer struct {

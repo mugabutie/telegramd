@@ -22,12 +22,12 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/mysql_client"
-	"github.com/mugabutie/telegramd/base/redis_client"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/frontend/rpc"
-	server2 "github.com/mugabutie/telegramd/frontend/server"
-	"github.com/mugabutie/telegramd/grpc_util"
+	"../../base/mysql_client"
+	"../../base/redis_client"
+	"../../biz_model/dal/dao"
+	"../../frontend/rpc"
+	server2 "../../frontend/server"
+	"../../grpc_util"
 )
 
 func init() {

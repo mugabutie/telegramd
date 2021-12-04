@@ -19,7 +19,7 @@ package mtproto
 
 import (
 	"fmt"
-	"github.com/mugabutie/telegramd/frontend/id"
+	"../../frontend/id"
 	"testing"
 	"time"
 )

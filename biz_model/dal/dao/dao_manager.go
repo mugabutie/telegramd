@@ -20,9 +20,9 @@ package dao
 import (
 	"github.com/golang/glog"
 	"github.com/jmoiron/sqlx"
-	"github.com/mugabutie/telegramd/base/redis_client"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao/mysql_dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao/redis_dao"
+	"../../../base/redis_client"
+	"../../../biz_model/dal/dao/mysql_dao"
+	"../../../biz_model/dal/dao/redis_dao"
 )
 
 const (

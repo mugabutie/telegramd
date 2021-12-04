@@ -19,7 +19,7 @@ package model
 
 import (
 	// "fmt"
-	// "github.com/mugabutie/telegramd/base/orm"
+	// "../../base/orm"
 	// _ "github.com/go-sql-driver/mysql" // import your used driver
 	"fmt"
 	"github.com/BurntSushi/toml"

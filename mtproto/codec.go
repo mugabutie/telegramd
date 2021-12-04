@@ -23,7 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang/glog"
-	net2 "github.com/mugabutie/telegramd/net"
+	net2 "../net"
 	"io"
 	"net"
 )

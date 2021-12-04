@@ -18,10 +18,10 @@
 package model
 
 import (
-	"github.com/mugabutie/telegramd/biz_model/base"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../biz_model/base"
+	"../../biz_model/dal/dao"
+	"../../biz_model/dal/dataobject"
+	"../../mtproto"
 	"sync"
 	"time"
 )

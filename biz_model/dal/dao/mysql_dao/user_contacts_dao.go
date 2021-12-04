@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/jmoiron/sqlx"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../../../biz_model/dal/dataobject"
+	"../../../../mtproto"
 )
 
 type UserContactsDAO struct {

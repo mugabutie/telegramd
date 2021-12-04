@@ -23,7 +23,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/crypto"
+	"../base/crypto"
 )
 
 const (

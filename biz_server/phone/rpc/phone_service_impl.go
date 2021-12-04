@@ -19,7 +19,7 @@ package rpc
 
 import (
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../../mtproto"
 	"golang.org/x/net/context"
 )
 

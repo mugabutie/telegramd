@@ -21,8 +21,8 @@ import (
 	"encoding/base64"
 	"github.com/cosiner/gohper/errors"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/dal/dao"
-	"github.com/mugabutie/telegramd/biz_model/dal/dataobject"
+	"../../biz_model/dal/dao"
+	"../../biz_model/dal/dataobject"
 )
 
 // "root:@/nebulaim?charset=utf8"

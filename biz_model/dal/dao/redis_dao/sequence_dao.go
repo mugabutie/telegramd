@@ -25,8 +25,8 @@ package redis_dao
 import (
 	"fmt"
 	"github.com/garyburd/redigo/redis"
-	"github.com/mugabutie/telegramd/base/base"
-	"github.com/mugabutie/telegramd/base/redis_client"
+	"../../../../base/base"
+	"../../../../base/redis_client"
 )
 
 const (

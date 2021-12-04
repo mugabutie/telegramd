@@ -18,9 +18,8 @@
 package mysql_client
 
 import (
-	_ "github.com/go-sql-driver/mysql" // import your used driver
-	"github.com/jmoiron/sqlx"
 	"github.com/golang/glog"
+	"github.com/jmoiron/sqlx"
 )
 
 type MySQLConfig struct {

@@ -20,9 +20,9 @@ package grpc_testing
 import (
 	"reflect"
 	"testing"
-	// "github.com/mugabutie/telegramd/mtproto"
+	// "../../mtproto"
 	"fmt"
-	// "github.com/mugabutie/telegramd/mtproto"
+	// "../../mtproto"
 )
 
 func TestReflectTLObject(t *testing.T) {

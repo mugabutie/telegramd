@@ -20,10 +20,10 @@ package rpc
 import (
 	"errors"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_model/base"
-	"github.com/mugabutie/telegramd/biz_model/model"
-	"github.com/mugabutie/telegramd/grpc_util"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../../biz_model/base"
+	"../../../biz_model/model"
+	"../../../grpc_util"
+	"../../../mtproto"
 	"golang.org/x/net/context"
 	"time"
 )

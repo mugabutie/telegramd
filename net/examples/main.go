@@ -19,8 +19,8 @@ package main
 
 import (
 	"fmt"
-	net2 "github.com/mugabutie/telegramd/net"
-	"github.com/mugabutie/telegramd/net/codec"
+	net2 "../../net"
+	"../../net/codec"
 	"log"
 )
 

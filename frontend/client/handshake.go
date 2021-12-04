@@ -23,8 +23,8 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/base/crypto"
-	. "github.com/mugabutie/telegramd/mtproto"
+	"../../base/crypto"
+	. "../../mtproto"
 	"math/big"
 	"time"
 )

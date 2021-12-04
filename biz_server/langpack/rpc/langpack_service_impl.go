@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/golang/glog"
-	"github.com/mugabutie/telegramd/biz_server/langpack/model"
-	"github.com/mugabutie/telegramd/mtproto"
+	"../../langpack/model"
+	"../../../mtproto"
 	"golang.org/x/net/context"
 )
 

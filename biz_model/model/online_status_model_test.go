@@ -18,7 +18,7 @@
 package model
 
 import (
-	"github.com/mugabutie/telegramd/base/redis_client"
+	"../../base/redis_client"
 	"testing"
 	"time"
 )
